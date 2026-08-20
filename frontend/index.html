@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quintet - AI Learning Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h1>Quintet</h1>
+            <p>AI Learning Assistant</p>
+        </div>
+
+        <nav>
+            <button class="nav-item active" data-page="dashboard">
+                Dashboard
+            </button>
+
+            <button class="nav-item" data-page="assessment">
+                Assessment
+            </button>
+
+            <button class="nav-item" data-page="diagnostic">
+                Diagnostic
+            </button>
+
+            <button class="nav-item" data-page="tutor">
+                AI Tutor
+            </button>
+
+            <button class="nav-item" data-page="recommendations">
+                Recommendations
+            </button>
+        </nav>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="topbar">
+            <div>
+                <h2 id="page-title">Dashboard</h2>
+                <p>Your personalized learning overview</p>
+            </div>
+
+            <div class="student-info">
+                <span id="student-name">Student</span>
+            </div>
+        </header>
+
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="page active">
+
+            <div class="welcome">
+                <h2>Welcome back!</h2>
+                <p>Here's how you're doing today.</p>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <h3>Overall Accuracy</h3>
+                    <strong id="overall-accuracy">--</strong>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Questions Attempted</h3>
+                    <strong id="questions-attempted">--</strong>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Subjects</h3>
+                    <strong id="subjects-count">--</strong>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Learning Level</h3>
+                    <strong id="learning-level">--</strong>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="card">
+                    <h3>Learning Performance</h3>
+
+                    <div id="performance-chart">
+                        Chart will appear here
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <h3>Recommended Topics</h3>
+
+                    <div id="recommendations">
+                        Loading recommendations...
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Assessment -->
+        <section id="assessment" class="page">
+
+            <div class="card">
+                <h2>Assessment</h2>
+
+                <p>
+                    Take an assessment to evaluate your current
+                    knowledge and performance.
+                </p>
+
+                <button id="start-assessment">
+                    Start Assessment
+                </button>
+            </div>
+
+        </section>
+
+
+        <!-- Diagnostic -->
+        <section id="diagnostic" class="page">
+
+            <div class="card">
+                <h2>Learning Diagnostic</h2>
+
+                <p>
+                    Identify your strengths, weaknesses and
+                    misconceptions.
+                </p>
+
+                <button id="run-diagnostic">
+                    Run Diagnostic
+                </button>
+
+                <div id="diagnostic-results"></div>
+            </div>
+
+        </section>
+
+
+        <!-- AI Tutor -->
+        <section id="tutor" class="page">
+
+            <div class="card tutor-card">
+
+                <h2>AI Tutor</h2>
+
+                <div id="chat-box">
+                    <div class="bot-message">
+                        Hi! I'm your AI tutor. Ask me anything.
+                    </div>
+                </div>
+
+                <div class="chat-input">
+
+                    <input
+                        type="text"
+                        id="question-input"
+                        placeholder="Ask your question..."
+                    >
+
+                    <button id="ask-tutor">
+                        Ask
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Recommendations -->
+        <section id="recommendations-page" class="page">
+
+            <div class="card">
+
+                <h2>Personalized Recommendations</h2>
+
+                <div id="recommendation-list">
+                    Loading...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="api.js"></script>
+        <script src="dashboard.js"></script>
+        <script src="assessment.js"></script>
+        <script src="app.js"></script>
+</body>
+</html>

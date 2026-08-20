@@ -17,10 +17,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from Utils.database import init_db, get_db, LearnerProfile
-from Utils import learner as learner_store
-from Utils.orchestrator import orchestrator
-from Utils.rag import index_knowledge_base
+from utils.database import init_db, get_db, LearnerProfile
+from utils import learner as learner_store
+from utils.orchestrator import orchestrator
+from utils.rag import index_knowledge_base
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("eduleap.api")

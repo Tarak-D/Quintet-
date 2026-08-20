@@ -1091,3 +1091,36 @@ if __name__ == "__main__":
         print(
             exc
         )
+
+# ============================================================================
+# ORCHESTRATOR COMPATIBILITY WRAPPER
+# ============================================================================
+
+class TutorAgent:
+    """
+    Compatibility wrapper for AIOrchestrator.
+
+    Keeps the existing Tutor Agent implementation intact while exposing
+    the class-based interface expected by orchestrator.py.
+    """
+
+    def __init__(self):
+        pass
+
+    def explain(
+        self,
+        topic: str,
+        level,
+        struggling: bool = False,
+        prior_explanation_summary: Optional[str] = None,
+    ) -> str:
+        """
+        Generate an adaptive explanation using the existing Tutor Agent.
+        """
+
+        return adaptive_explanation(
+            concept=topic,
+            level=str(level),
+            struggling=struggling,
+            prior_explanation=prior_explanation_summary,
+        )

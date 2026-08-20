@@ -1538,3 +1538,52 @@ if __name__ == "__main__":
         print(
             exc
         )
+
+# ============================================================================
+# ORCHESTRATOR COMPATIBILITY WRAPPER
+# ============================================================================
+
+class AssessmentAgent:
+    """
+    Compatibility wrapper for AIOrchestrator.
+
+    Keeps the existing assessment implementation intact while exposing
+    the class-based interface expected by orchestrator.py.
+    """
+
+    def __init__(self):
+        pass
+
+    def generate_question(
+        self,
+        topic: str,
+        level: str,
+        target_gap: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """
+        Generate a practice question using the existing assessment agent.
+        """
+
+        difficulty_map = {
+            "beginner": "easy",
+            "basic": "easy",
+            "easy": "easy",
+            "intermediate": "medium",
+            "medium": "medium",
+            "advanced": "hard",
+            "hard": "hard",
+        }
+
+        difficulty = difficulty_map.get(
+            str(level).lower(),
+            "medium"
+        )
+
+        concept = target_gap if target_gap else topic
+
+        question = generate_practice_question(
+            concept=concept,
+            difficulty=difficulty,
+        )
+
+        return question

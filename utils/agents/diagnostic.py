@@ -1432,3 +1432,113 @@ if __name__ == "__main__":
             "Diagnostic Agent failed:"
         )
         print(exc)
+
+# ============================================================================
+# ORCHESTRATOR COMPATIBILITY WRAPPER
+# ============================================================================
+
+class DiagnosticAgent:
+    """
+    Compatibility wrapper for AIOrchestrator.
+
+    Keeps the existing functional diagnostic implementation intact while
+    exposing the class-based interface expected by orchestrator.py.
+    """
+
+    def __init__(self):
+        pass
+
+    def generate_diagnostic(
+        self,
+        topic: str,
+        grade_level: str = "General",
+        num_questions: int = 4,
+    ) -> List[Dict[str, Any]]:
+        """
+        Generate diagnostic questions.
+
+        Returns backend questions including correct_answer because the
+        orchestrator needs them for evaluation.
+        """
+        return generate_diagnostic(
+            topic=topic,
+            grade_level=grade_level,
+            num_questions=num_questions,
+        )
+
+    def estimate_level(
+        self,
+        topic: str,
+        responses: List[Dict[str, Any]],
+    ) -> Dict[str, Any]:
+        """
+        Convert the orchestrator's response format into the existing
+        deterministic diagnostic evaluator format.
+        """
+
+        # The orchestrator currently sends:
+        #
+        # [
+        #   {
+        #       "question": "...",
+        #       "targets": "...",
+        #       "correct": True
+        #   }
+        # ]
+        #
+        # The diagnostic evaluator expects:
+        #
+        # {
+        #     "q1": "answer",
+        #     "q2": "answer"
+        # }
+        #
+        # Since the existing API only provides a correctness signal,
+        # construct a compatible evaluation directly.
+
+        if not responses:
+            return {
+                "level": 1.0,
+                "gaps": [],
+            }
+
+        correct_count = sum(
+            1
+            for response in responses
+            if response.get("correct") is True
+        )
+
+        score = correct_count / len(responses)
+
+        # Simple academic level mapping.
+        if score >= 0.85:
+            level = 5.0
+        elif score >= 0.70:
+            level = 4.0
+        elif score >= 0.50:
+            level = 3.0
+        elif score >= 0.30:
+            level = 2.0
+        else:
+            level = 1.0
+
+        gaps = []
+
+        for response in responses:
+            if not response.get("correct"):
+                target = response.get("targets")
+
+                if target:
+                    if isinstance(target, list):
+                        gaps.extend(target)
+                    else:
+                        gaps.append(str(target))
+
+        # Remove duplicates while preserving order.
+        gaps = list(dict.fromkeys(gaps))
+
+        return {
+            "level": level,
+            "gaps": gaps,
+            "score": score,
+        }
