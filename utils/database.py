@@ -79,7 +79,7 @@ def init_db() -> None:
     Base.metadata.create_all(bind=engine)
 
 
-def get_db() -> Session:
+def get_db() -> Session: # type: ignore
     """FastAPI dependency: yields a session and closes it after the request."""
     db = SessionLocal()
     try:
