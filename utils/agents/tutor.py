@@ -1019,7 +1019,7 @@ def adaptive_explanation(
 # SIMPLE HEALTH CHECK
 # ============================================================================
 
-def tutor_health_check() -> Dict[str, Any]:
+def tutor_health_check() -> Dict[str, Any]: # type: ignore
     """
     Lightweight health-check information.
 
